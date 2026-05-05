@@ -3,7 +3,6 @@ local ADDON_NAME = ...
 local PREFIX = "|cff66d9efSYBAU|r:"
 
 local FILTER_EVENTS = {
-    "CHAT_MSG_SYSTEM",
     "CHAT_MSG_TEXT_EMOTE",
     "CHAT_MSG_MONSTER_EMOTE",
     "CHAT_MSG_MONSTER_SAY",

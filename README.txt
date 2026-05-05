@@ -18,8 +18,8 @@ Excluded:
 
 - Gossip
 
-It filters across likely chat events:
-system, text emote, monster emote, monster say/yell/whisper, and raid boss emote/whisper.
+It filters across likely NPC/emote chat events:
+text emote, monster emote, monster say/yell/whisper, and raid boss emote/whisper.
 
 Install
 -------
