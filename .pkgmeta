@@ -1,0 +1,5 @@
+package-as: SYBAU
+
+ignore:
+  - avatar.png
+  - package.bat
