@@ -13,11 +13,11 @@ local FILTER_EVENTS = {
     "CHAT_MSG_RAID_BOSS_WHISPER",
 }
 
-sybauDB = sybauDB or {}
-local db = sybauDB
+local db
 
 local compiledPatterns = {}
 local compiledExtraPatterns = {}
+local initialized = false
 
 local function EscapePattern(text)
     return (text:gsub("([%%%^%$%(%)%.%[%]%*%+%-%?])", "%%%1"))
@@ -61,6 +61,9 @@ local function BuildPatterns()
 end
 
 local function EnsureDefaults()
+    sybauDB = sybauDB or {}
+    db = sybauDB
+
     if db.enabled == nil then
         db.enabled = true
     end
@@ -135,7 +138,7 @@ local function RemoveExtraPattern(indexText)
 end
 
 local function PrintHelp()
-    Say((db.enabled and "on" or "off") .. ", blocked " .. db.blocked .. " lines. commands: /sybau, /sybau toggle, /sybau tutorial, /sybau reset, /sybau add <text>, /sybau list, /sybau remove <number>")
+    Say((db.enabled and "on" or "off") .. ", tutorial " .. (db.tutorial and "on" or "off") .. ", blocked " .. db.blocked .. " lines. commands: /sybau, /sybau toggle, /sybau tutorial, /sybau reset, /sybau add <text>, /sybau list, /sybau remove <number>")
 end
 
 local function HandleSlash(input)
@@ -174,24 +177,29 @@ local function HandleSlash(input)
     end
 end
 
-EnsureDefaults()
-BuildPatterns()
+local function Initialize()
+    EnsureDefaults()
+    BuildPatterns()
 
-for _, event in ipairs(FILTER_EVENTS) do
-    ChatFrame_AddMessageEventFilter(event, ChatFilter)
+    if not initialized then
+        for _, event in ipairs(FILTER_EVENTS) do
+            ChatFrame_AddMessageEventFilter(event, ChatFilter)
+        end
+
+        SLASH_SYBAU1 = "/sybau"
+        SlashCmdList.SYBAU = HandleSlash
+        initialized = true
+    end
+
+    if db.tutorial then
+        print('SYBAU Tutorial (deactivate with /sybau tutorial): Toggle ON/OFF with "/sybau toggle". SYBAU is default ON. You can add your own lines with "/sybau add" followed by full line or just the starting word(s). Use * anywhere in the line and in any number to replace variables such as race, class, or missing word(s). <race>, <class> formatting also works if you copy from warcraft.wiki.gg.')
+    end
 end
-
-SLASH_SYBAU1 = "/sybau"
-SlashCmdList.SYBAU = HandleSlash
 
 local loadedFrame = CreateFrame("Frame")
 loadedFrame:RegisterEvent("ADDON_LOADED")
 loadedFrame:SetScript("OnEvent", function(_, _, addonName)
     if addonName == ADDON_NAME then
-        EnsureDefaults()
-        BuildPatterns()
-        if db.tutorial then
-            print('SYBAU Tutorial (deactivate with /sybau tutorial): Toggle ON/OFF with "/sybau toggle". SYBAU is default ON. You can add your own lines with "/sybau add" followed by full line or just the starting word(s). Use * anywhere in the line and in any number to replace variables such as race, class, or missing word(s). <race>, <class> formatting also works if you copy from warcraft.wiki.gg.')
-        end
+        Initialize()
     end
 end)
