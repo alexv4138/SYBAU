@@ -69,10 +69,6 @@ local function EnsureDefaults()
 
     db.blocked = tonumber(db.blocked) or 0
     db.extraPatterns = db.extraPatterns or {}
-
-    if db.tutorial == nil then
-        db.tutorial = true
-    end
 end
 
 local function Say(message)
@@ -137,7 +133,7 @@ local function RemoveExtraPattern(indexText)
 end
 
 local function PrintHelp()
-    Say((db.enabled and "on" or "off") .. ", tutorial " .. (db.tutorial and "on" or "off") .. ", blocked " .. db.blocked .. " lines. commands: /sybau, /sybau toggle, /sybau tutorial, /sybau reset, /sybau add <text>, /sybau list, /sybau remove <number>")
+    Say((db.enabled and "on" or "off") .. ", blocked " .. db.blocked .. " lines. commands: /sybau, /sybau toggle, /sybau reset, /sybau add <text>, /sybau list, /sybau remove <number>")
 end
 
 local function HandleSlash(input)
@@ -151,9 +147,6 @@ local function HandleSlash(input)
     elseif command == "toggle" then
         db.enabled = not db.enabled
         Say(db.enabled and "on." or "off.")
-    elseif command == "tutorial" then
-        db.tutorial = not db.tutorial
-        Say("tutorial " .. (db.tutorial and "on." or "off."))
     elseif command == "reset" then
         db.blocked = 0
         Say("count reset.")
@@ -188,10 +181,6 @@ local function Initialize()
         SLASH_SYBAU1 = "/sybau"
         SlashCmdList.SYBAU = HandleSlash
         initialized = true
-    end
-
-    if db.tutorial then
-        print('SYBAU Tutorial (deactivate with /sybau tutorial): Toggle ON/OFF with "/sybau toggle". SYBAU is default ON. You can add your own lines with "/sybau add" followed by full line or just the starting word(s). Use * anywhere in the line and in any number to replace variables such as race, class, or missing word(s). <race>, <class> formatting also works if you copy from warcraft.wiki.gg.')
     end
 end
 

@@ -39,9 +39,6 @@ Shows status, count, and commands.
 /sybau toggle
 Toggles filtering.
 
-/sybau tutorial
-Toggles the startup tutorial message.
-
 /sybau reset
 Resets blocked line count.
 
