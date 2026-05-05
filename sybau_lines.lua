@@ -44,4 +44,6 @@ I'm allowing your "pets" to roam around due to all the good you have done for Si
 Just keep your demons away from the children, okay?
 
 Perhaps this is a new start of our city's story with death knights like yourself.
+
+The guard gives you a polite nod, despite their eyes lingering on your void energies.
 ]=]
