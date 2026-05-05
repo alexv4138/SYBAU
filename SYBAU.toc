@@ -1,0 +1,10 @@
+## Interface: 120001
+## Title: SYBAU
+## Notes: Hides Silvermoon Guard ambient chat spam.
+## Author: alexv + Codex
+## Version: 1.1.0
+## IconTexture: Interface\AddOns\SYBAU\icon.tga
+## SavedVariables: sybauDB
+
+sybau_lines.lua
+sybau.lua

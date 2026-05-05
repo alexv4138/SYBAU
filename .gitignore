@@ -1,0 +1,21 @@
+# Packaged releases
+*.zip
+
+# Local screenshots/source images
+Screenshot*.png
+*.psd
+*.xcf
+
+# WoW local state
+WTF/
+Cache/
+Errors/
+Logs/
+
+# Editor/system files
+.vscode/
+.idea/
+*.swp
+*.tmp
+Thumbs.db
+Desktop.ini
